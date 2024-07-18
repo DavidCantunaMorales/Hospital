@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const MedicoForm = ({ onSave }) => {
   const [medico, setMedico] = useState({
     nombre_m: '',
     apellido_m: '',
-    especialidad_m: ''
+    especialidad_m: '',
   });
 
   const handleChange = (e) => {
@@ -17,7 +17,7 @@ const MedicoForm = ({ onSave }) => {
       const response = await fetch('http://localhost:4000/medico', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(medico)
+        body: JSON.stringify(medico),
       });
       await response.json();
       onSave();
@@ -26,36 +26,51 @@ const MedicoForm = ({ onSave }) => {
     }
   };
 
+  const formRowStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '10px',
+  };
+
+  const inputContainerStyle = {
+    display: 'flex',
+    marginRight: '10px',
+  };
+
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Nombre:</label>
-        <input
-          type="text"
-          name="nombre_m"
-          value={medico.nombre_m}
-          onChange={handleChange}
-        />
+      <div style={formRowStyle}>
+        <div style={inputContainerStyle}>
+          <label>Nombre:</label>
+          <input
+            type='text'
+            name='nombre_m'
+            value={medico.nombre_m}
+            onChange={handleChange}
+          />
+        </div>
+        <div style={inputContainerStyle}>
+          <label>Apellido:</label>
+          <input
+            type='text'
+            name='apellido_m'
+            value={medico.apellido_m}
+            onChange={handleChange}
+          />
+        </div>
       </div>
-      <div>
-        <label>Apellido:</label>
-        <input
-          type="text"
-          name="apellido_m"
-          value={medico.apellido_m}
-          onChange={handleChange}
-        />
+      <div style={formRowStyle}>
+        <div style={{ ...inputContainerStyle, marginRight: '0' }}>
+          <label>Especialidad:</label>
+          <input
+            type='text'
+            name='especialidad_m'
+            value={medico.especialidad_m}
+            onChange={handleChange}
+          />
+        </div>
       </div>
-      <div>
-        <label>Especialidad:</label>
-        <input
-          type="text"
-          name="especialidad_m"
-          value={medico.especialidad_m}
-          onChange={handleChange}
-        />
-      </div>
-      <button type="submit">Guardar</button>
+      <button type='submit'>Guardar</button>
     </form>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const PacienteList = () => {
   const [pacientes, setPacientes] = useState([]);
@@ -16,7 +16,7 @@ const PacienteList = () => {
   const handleDelete = async (id) => {
     try {
       await fetch(`http://localhost:4000/paciente/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       });
       setPacientes(pacientes.filter((paciente) => paciente.id !== id));
     } catch (error) {
@@ -31,14 +31,34 @@ const PacienteList = () => {
   return (
     <div>
       <h2>Lista de Pacientes</h2>
-      <ul>
-        {pacientes.map((paciente) => (
-          <li key={paciente.id}>
-            {paciente.nombre} - {paciente.apellido} - {paciente.fecha_nacimiento} - {paciente.email}
-            <button onClick={() => handleDelete(paciente.id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
+      <table style={{ border: '1px solid grey', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={{ border: '1px solid grey' }}>Nombre</th>
+            <th style={{ border: '1px solid grey' }}>Apellido</th>
+            <th style={{ border: '1px solid grey' }}>Fecha de Nacimiento</th>
+            <th style={{ border: '1px solid grey' }}>Email</th>
+            <th style={{ border: '1px solid grey' }}>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pacientes.map((paciente) => (
+            <tr key={paciente.id}>
+              <td style={{ border: '1px solid grey' }}>{paciente.nombre}</td>
+              <td style={{ border: '1px solid grey' }}>{paciente.apellido}</td>
+              <td style={{ border: '1px solid grey' }}>
+                {paciente.fecha_nacimiento}
+              </td>
+              <td style={{ border: '1px solid grey' }}>{paciente.email}</td>
+              <td style={{ border: '1px solid grey' }}>
+                <button onClick={() => handleDelete(paciente.id)}>
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

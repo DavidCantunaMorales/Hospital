@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ConsultorioForm = ({ onSave }) => {
   const [consultorio, setConsultorio] = useState({
     numero_c: '',
-    piso_p: ''
+    piso_p: '',
   });
 
   const handleChange = (e) => {
@@ -16,7 +16,7 @@ const ConsultorioForm = ({ onSave }) => {
       const response = await fetch('http://localhost:4000/consultorio', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(consultorio)
+        body: JSON.stringify(consultorio),
       });
       await response.json();
       onSave();
@@ -30,8 +30,8 @@ const ConsultorioForm = ({ onSave }) => {
       <div>
         <label>Número:</label>
         <input
-          type="text"
-          name="numero_c"
+          type='text'
+          name='numero_c'
           value={consultorio.numero_c}
           onChange={handleChange}
         />
@@ -39,13 +39,13 @@ const ConsultorioForm = ({ onSave }) => {
       <div>
         <label>Piso:</label>
         <input
-          type="text"
-          name="piso_p"
+          type='text'
+          name='piso_p'
           value={consultorio.piso_p}
           onChange={handleChange}
         />
       </div>
-      <button type="submit">Guardar</button>
+      <button type='submit'>Guardar</button>
     </form>
   );
 };

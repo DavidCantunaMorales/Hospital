@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CitaList from '../components/CitaList';
 import CitaForm from '../components/CitaForm';
 
@@ -11,7 +11,7 @@ const Citas = () => {
 
   return (
     <div>
-      <h1>Gestión de Citas</h1>
+      <h1>Citas</h1>
       <CitaForm onSave={handleSave} />
       <CitaList key={update} />
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PacienteList from '../components/PacienteList';
 import PacienteForm from '../components/PacienteForm';
 
@@ -11,7 +11,7 @@ const Pacientes = () => {
 
   return (
     <div>
-      <h1>Gestión de Pacientes</h1>
+      <h1>Pacientes</h1>
       <PacienteForm onSave={handleSave} />
       <PacienteList key={update} />
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CitaList = () => {
   const [citas, setCitas] = useState([]);
@@ -16,7 +16,7 @@ const CitaList = () => {
   const handleDelete = async (id) => {
     try {
       await fetch(`http://localhost:4000/cita/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       });
       setCitas(citas.filter((cita) => cita.id !== id));
     } catch (error) {
@@ -31,14 +31,30 @@ const CitaList = () => {
   return (
     <div>
       <h2>Lista de Citas</h2>
-      <ul>
-        {citas.map((cita) => (
-          <li key={cita.id}>
-            {cita.paciente_id} - {cita.medico_id} - {cita.fecha} - {cita.hora}
-            <button onClick={() => handleDelete(cita.id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
+      <table style={{ border: '1px solid grey', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={{ border: '1px solid grey' }}>Paciente ID</th>
+            <th style={{ border: '1px solid grey' }}>Médico ID</th>
+            <th style={{ border: '1px solid grey' }}>Fecha</th>
+            <th style={{ border: '1px solid grey' }}>Hora</th>
+            <th style={{ border: '1px solid grey' }}>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {citas.map((cita) => (
+            <tr key={cita.id}>
+              <td style={{ border: '1px solid grey' }}>{cita.paciente_id}</td>
+              <td style={{ border: '1px solid grey' }}>{cita.medico_id}</td>
+              <td style={{ border: '1px solid grey' }}>{cita.fecha}</td>
+              <td style={{ border: '1px solid grey' }}>{cita.hora}</td>
+              <td style={{ border: '1px solid grey' }}>
+                <button onClick={() => handleDelete(cita.id)}>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

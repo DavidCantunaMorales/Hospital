@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const MedicoList = () => {
   const [medicos, setMedicos] = useState([]);
@@ -16,7 +16,7 @@ const MedicoList = () => {
   const handleDelete = async (id) => {
     try {
       await fetch(`http://localhost:4000/medico/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       });
       setMedicos(medicos.filter((medico) => medico.id !== id));
     } catch (error) {
@@ -31,14 +31,32 @@ const MedicoList = () => {
   return (
     <div>
       <h2>Lista de Médicos</h2>
-      <ul>
-        {medicos.map((medico) => (
-          <li key={medico.id}>
-            {medico.nombre} - {medico.apellido} - {medico.especialidad}
-            <button onClick={() => handleDelete(medico.id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
+      <table style={{ border: '1px solid grey', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={{ border: '1px solid grey' }}>Nombre</th>
+            <th style={{ border: '1px solid grey' }}>Apellido</th>
+            <th style={{ border: '1px solid grey' }}>Especialidad</th>
+            <th style={{ border: '1px solid grey' }}>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {medicos.map((medico) => (
+            <tr key={medico.id}>
+              <td style={{ border: '1px solid grey' }}>{medico.nombre}</td>
+              <td style={{ border: '1px solid grey' }}>{medico.apellido}</td>
+              <td style={{ border: '1px solid grey' }}>
+                {medico.especialidad}
+              </td>
+              <td style={{ border: '1px solid grey' }}>
+                <button onClick={() => handleDelete(medico.id)}>
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
